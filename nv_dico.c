@@ -3,46 +3,46 @@
 
 void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int size_nv_dico, char** dico, char** nouv_dico)
 {
-    printf("a\n");
-    char position_bien_place[size_mot];
-    printf("1");
-    char position_mal_place[size_mot];
-    char position_non_place[size_mot];
+    int position_bien_place[size_mot];
+    int position_mal_place[size_mot];
+    int position_non_place[size_mot];
     char lettre_bien_place[size_mot];
     char lettre_mal_place[size_mot];
     char lettre_non_place[size_mot];
-    printf("2");
+
     for (int i = 0; i<size_mot; ++i)
     {
-        if (resultat[i] == '2')
+        if (resultat[i] == 2)
         {
-            printf("%d 1", i);
-            position_bien_place[i]=i;
+            position_bien_place[i]=i+1;
             lettre_bien_place[i]=ancien_mot[i];
         }
         else 
-        {
-            printf("%d 2", i);            
-            position_bien_place[i]='.';
+        {          
+            position_bien_place[i]=0;
             lettre_bien_place[i]='.';
         }
-        if (resultat[i] == '1')
+
+        if (resultat[i] == 1)
         {
-            printf("%d 3", i);   
-            position_mal_place[i]=i;
+            position_mal_place[i]=i+1;
             lettre_mal_place[i]=ancien_mot[i];
         }
         else 
-        {
-            printf("%d 4", i);   
-            position_mal_place[i]='.';
+        { 
+            position_mal_place[i]=0;
             lettre_mal_place[i]='.';
         }
-        if ( resultat[i] == '0')
+
+        if ( resultat[i] == 0)
+        { 
+            position_non_place[i]=i+1;
+            lettre_non_place[i]=ancien_mot[i];
+        }
+        else
         {
-            printf("%d 5", i);   
-            position_non_place[i]=i;
-            lettre_non_place[i]=i;
+            position_non_place[i]=0;
+            lettre_non_place[i]='.';
         }
     }
 
@@ -54,11 +54,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 // verification lettre bien placée et non place
         while (j < size_mot )
         {
-            if ( (position_bien_place[j] != '.') && (dico[i][j] != lettre_bien_place[j]))
-            {
-                j = size_mot + 1;
-            }
-            else if ( (position_non_place[j] != '.') && (dico[i][j] == lettre_non_place[j]))
+            if ( (position_bien_place[j] != 0) && (dico[i][j] != lettre_bien_place[j]))
             {
                 j = size_mot + 1;
             }
@@ -71,21 +67,26 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 // si tout est ok pour les lettres bien placées et non placées
         if ( j == size_mot ) 
         {
+            printf("non\n");
             int h = 0;
             while ( h<size_mot )
             {
-                if (position_mal_place[h] != '.')
+                printf("pp\n");
+                if (position_mal_place[h] != 0)
                 {
                     int g = 0;
                     while( g<size_mot )
                     {
-
+                        printf("oui\n");
 // si je trouve la lettre a un autre endroit j'arrête ma boucle
                         if ( (dico[i][g] == lettre_mal_place[h]) && (g != h))
                         {
                             g = size_mot + 1;
                         }
-                        ++g;
+                        else
+                        {
+                            ++g;
+                        }
                     }
 
 // si j'ai parcouru tout mon mot c'est que la lettre n'y est pas
@@ -95,26 +96,58 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
                         j = size_mot + 1;
                     }
                 }
+                else if (position_non_place[h] != 0)
+                {
+                int g = 0;
+                    while( g<size_mot )
+                    {
+                        printf("oui\n");
+
+// si je trouve la lettre a un  endroit j'arrête ma boucle
+                        if (dico[i][g] == lettre_non_place[h])
+                        {
+                            g = size_mot + 1;
+                        }
+                        else
+                        {
+                            ++g;
+                    
+                        }    
+                    }
+
+// si je n'ai pas parcouru tout mon mot c'est que la lettre y est
+                    if ( g !=size_mot)
+                    {
+                        h = size_mot +1;
+                        j = size_mot + 1;                        
+                    } 
+
+                }
+                ++h;
+                
             }
         }
 
+        printf("victor\n");
 // si tout est ok
         if (j == size_mot)
         {
-            stpcpy(nouv_dico[size_nv_dico], dico[i]);
+            printf("%d\n", i);
+            strcpy(nouv_dico[size_nv_dico], dico[i]);
             ++size_nv_dico;
         } 
+        printf("done\n");
     }
 }
 
 int main()
 {
-    char* dico [3];
+    char* dico [256];
     dico[0]="abc";
     dico[1]="bde";
-    dico[2]="arb";
+    dico[2]="abr";
     int size_nv_dico = 0;
-    char* nouv_dico[3];
+    char* nouv_dico[256];
     char ancien_mot[3];
     ancien_mot[0] = 'a';
     ancien_mot[1] = 'r';
@@ -125,7 +158,7 @@ int main()
     resultat[2] = 0;
     int size_mot = 3;
     int size_dico = 9;
-    printf("debut\n");
+    printf("debuter\n");
     nv_dico(ancien_mot, resultat, size_mot, size_dico, size_nv_dico, dico, nouv_dico);
     printf("fin\n");
     for (int i; i<3; ++i)
