@@ -51,7 +51,6 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 
     for (int i = 0; i<size_dico; ++i)
     {
-        printf("%d\n", i);
         int j = 0;
 
 // verification lettre bien placée et non place
@@ -70,17 +69,14 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 // si tout est ok pour les lettres bien placées et non placées
         if ( j == size_mot ) 
         {
-            printf("non\n");
             int h = 0;
             while ( h<size_mot )
             {
-                printf("pp\n");
                 if (position_mal_place[h] != 0)
                 {
                     int g = 0;
                     while( g<size_mot )
                     {
-                        printf("oui\n");
 // si je trouve la lettre a un autre endroit j'arrête ma boucle
                         if ( (dico[i][g] == lettre_mal_place[h]) && (g != h))
                         {
@@ -104,7 +100,6 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
                 int g = 0;
                     while( g<size_mot )
                     {
-                        printf("oui\n");
 
 // si je trouve la lettre a un  endroit j'arrête ma boucle
                         if (dico[i][g] == lettre_non_place[h])
@@ -131,21 +126,15 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
             }
         }
 
-        printf("victor\n");
 // si tout est ok
         if (j == size_mot)
         {
-            printf("%d\n", i);
             nouv_dico[indice] = dico[i];
-            printf("%s\n", nouv_dico[indice]);
             ++indice;
         } 
-        printf("done\n");
     }
 
-    printf("%d\n", indice);
     *size_nv_dico = indice;
-    printf("%d\n", *size_nv_dico);
 }
 
 int main()
@@ -166,10 +155,7 @@ int main()
     resultat[2] = 0;
     int size_mot = 3;
     int size_dico = 3;
-    printf("debuter\n");
     nv_dico(ancien_mot, resultat, size_mot, size_dico, &size_nv_dico, dico, nouv_dico);
-    printf("fin\n");
-    printf("%d\n", size_nv_dico);
     for (int i = 0; i< size_nv_dico; i++)
     {
         printf("%s\n", nouv_dico[i]);
