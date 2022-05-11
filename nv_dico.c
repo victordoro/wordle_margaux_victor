@@ -9,6 +9,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
     char lettre_bien_place[size_mot];
     char lettre_mal_place[size_mot];
     char lettre_non_place[size_mot];
+    char copy_mot_dico[size_mot];
 
     int indice = 0;
 
@@ -53,7 +54,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
     {
         int j = 0;
 
-// verification lettre bien placée et non place
+// verification lettre bien placée
         while (j < size_mot )
         {
             if ( (position_bien_place[j] != 0) && (dico[i][j] != lettre_bien_place[j]))
@@ -66,10 +67,11 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
             }
         }
 
-// si tout est ok pour les lettres bien placées et non placées
+// si tout est ok pour les lettres bien placées
         if ( j == size_mot ) 
         {
             int h = 0;
+            strcpy(copy_mot_dico, dico[i]);
             while ( h<size_mot )
             {
                 if (position_mal_place[h] != 0)
@@ -78,8 +80,9 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
                     while( g<size_mot )
                     {
 // si je trouve la lettre a un autre endroit j'arrête ma boucle
-                        if ( (dico[i][g] == lettre_mal_place[h]) && (g != h))
+                        if ( (copy_mot_dico[g] == lettre_mal_place[h]) && (g != h) && (copy_mot_dico[g] != lettre_non_place[h]))
                         {
+                            copy_mot_dico[g]='.';
                             g = size_mot + 1;
                         }
                         else
@@ -130,7 +133,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
         if (j == size_mot)
         {
             nouv_dico[indice] = dico[i];
-            ++indice;
+            indice++;
         } 
     }
 
@@ -139,21 +142,27 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 
 int main()
 {
-    char* dico [9];
-    dico[0]="abc";
-    dico[1]="bde";
-    dico[2]="abr";
+    char* dico [18];
+    dico[0]="abacas";
+    dico[1]="samaam";
+    dico[2]="laames";
     int size_nv_dico = 0;
     char* nouv_dico[256];
-    char ancien_mot[3];
+    char ancien_mot[6];
     ancien_mot[0] = 'a';
-    ancien_mot[1] = 'r';
-    ancien_mot[2] = 'e';
-    int resultat[3];
-    resultat[0] = 2;
-    resultat[1] = 1;
-    resultat[2] = 0;
-    int size_mot = 3;
+    ancien_mot[1] = 'b';
+    ancien_mot[2] = 'a';
+    ancien_mot[3] = 'c';
+    ancien_mot[4] = 'a';
+    ancien_mot[5] = 's';
+    int resultat[6];
+    resultat[0] = 1;
+    resultat[1] = 0;
+    resultat[2] = 1;
+    resultat[3] = 0;
+    resultat[4] = 0;
+    resultat[5] = 1;
+    int size_mot = 6;
     int size_dico = 3;
     nv_dico(ancien_mot, resultat, size_mot, size_dico, &size_nv_dico, dico, nouv_dico);
     for (int i = 0; i< size_nv_dico; i++)
