@@ -8,14 +8,13 @@
 #include "recherche_dico.h"
 #include "compare.h"
 #include <time.h>
+#include "nv_dico.h"
+#include <math.h>
 
 char* meilleur_mot(char** dictionnaire, unsigned int size){
 
     double max = 0;
-    double p = 0;
     int indice_du_max = 0;
-    int size_nouv_dico = 0;
-    char** nouv_dico;
     int liste_symbole[5];
     
 
@@ -27,19 +26,29 @@ char* meilleur_mot(char** dictionnaire, unsigned int size){
 
         double esperance = 0;
 
-        for(int cas=0; cas<size; ++size){
+        for(int cas=0; cas<3; ++cas){
 
             for(int lettres=0; lettres<5;++lettres){
                 liste_symbole[lettres] = cas;
 
-                nouv_dico(dictionnaire[i], liste_symbole, 5, size, size_nouv_dico, dictionnaire, nouv_dico);
-                p = size_nouv_dico/size;
-                esperance += p*(-ln(1/p)/ln(2));
+                char* nouv_dico[size];
+                int size_nouv_dico = 0;
+
+                nv_dico(dictionnaire[i], liste_symbole, 5, size, &size_nouv_dico, dictionnaire, nouv_dico);
+
+                if(size_nouv_dico !=0){
+                    
+                    double p = (double)size_nouv_dico/(double)size;
+
+                    double bit = -log2(p);
+
+                    esperance = esperance + p*bit;
+                }
 
             }
         }
 
-        if (esperance>max){max=esperance; indice_du_max = i}
+        if (esperance>max){max=esperance; indice_du_max = i;}
     }
     return(dictionnaire[indice_du_max]);
 }

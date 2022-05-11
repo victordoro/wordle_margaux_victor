@@ -139,6 +139,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 
     *size_nv_dico = indice;
 }
+<<<<<<< HEAD
 
 int main()
 {
@@ -171,3 +172,5 @@ int main()
     }
     return 0;
 }
+=======
+>>>>>>> b5fb58988b0e11ef7202f707e004da5934528577
