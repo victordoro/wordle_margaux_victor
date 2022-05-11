@@ -90,13 +90,18 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
                             ++g;
                         }
                     }
-
+                    for (int l = 0; l < size_mot; ++l)
+                    {
+                        printf("%c", copy_mot_dico[l]);
+                    }
+                    printf("\n");
 // si j'ai parcouru tout mon mot c'est que la lettre n'y est pas
                     if (g == size_mot)
                     {
                         h = size_mot +1;
                         j = size_mot + 1;
                     }
+
                 }
                 else if (position_non_place[h] != 0)
                 {
@@ -139,13 +144,13 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 
     *size_nv_dico = indice;
 }
-<<<<<<< HEAD
+
 
 int main()
 {
     char* dico [18];
     dico[0]="abacas";
-    dico[1]="samaam";
+    dico[1]="samala";
     dico[2]="laames";
     int size_nv_dico = 0;
     char* nouv_dico[256];
@@ -161,7 +166,7 @@ int main()
     resultat[1] = 0;
     resultat[2] = 1;
     resultat[3] = 0;
-    resultat[4] = 0;
+    resultat[4] = 1;
     resultat[5] = 1;
     int size_mot = 6;
     int size_dico = 3;
@@ -172,5 +177,3 @@ int main()
     }
     return 0;
 }
-=======
->>>>>>> b5fb58988b0e11ef7202f707e004da5934528577
