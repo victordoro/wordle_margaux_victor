@@ -26,12 +26,6 @@ int main (int argc, char *argv[]){
     char** dictionnaire = liste_dicho(argv[2], &size);
 
     unsigned int num_words=size;
-    
-    srand(time(NULL));
-    int n_aleatoire = rand() % num_words;
-
-    char mot_aleatoire[256];
-    strcpy(mot_aleatoire,dictionnaire[n_aleatoire]); 
 
 
 // Début de la partie
@@ -46,6 +40,12 @@ int main (int argc, char *argv[]){
     char aide[256];
     scanf("%s", aide);
     if(strcmp(aide,"N")==0){
+
+        srand(time(NULL));
+        int n_aleatoire = rand() % num_words;
+
+        char mot_aleatoire[256];
+        strcpy(mot_aleatoire,dictionnaire[n_aleatoire]); 
     
     do{
         char* bon_mot=conditions(mot, dictionnaire, num_words);
@@ -65,7 +65,16 @@ int main (int argc, char *argv[]){
 
     else if(strcmp(aide,"O")==0){
 
+        srand(time(NULL));
+        int n_aleatoire = rand() % num_words;
+
+        char mot_aleatoire[256];
+        strcpy(mot_aleatoire,dictionnaire[n_aleatoire]); 
+
+        printf("%s\n", mot_aleatoire);
+
         resolveur(argv[2]);
+
         char* ancien_dico[num_words];
         int size_ancien_dico = num_words;
         char* nouveau_dico[num_words];
@@ -87,35 +96,39 @@ int main (int argc, char *argv[]){
 
         ++nombre_essai;
 
-        printf("Rentrez le résulat : \n");
+        if(victoire!=1){
+            
+            printf("Rentrez le résulat : \n");
 
-        char symbole[5];
-        scanf("%s", symbole);
+            char symbole[5];
+            scanf("%s", symbole);
 
-        int resultat[5];
-        for(int j=0; j<5; ++j){
-            if(symbole[j]=='X'){resultat[j]=2;}
-            else if(symbole[j] =='O'){resultat[j]=1;}
-            else {resultat[j]=0;}
+            int resultat[5];
+            for(int j=0; j<5; ++j){
+                if(symbole[j]=='X'){resultat[j]=2;}
+                else if(symbole[j] =='O'){resultat[j]=1;}
+                else {resultat[j]=0;}
+            }
+
+            char* nouveau_dico[num_words];
+            size_nv_dico = 0;
+
+            nv_dico (bon_mot, resultat, 5, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
+
+            size_ancien_dico = size_nv_dico;
+
+            for(int i=0; i<size_nv_dico; ++i){
+                printf("%s\n",nouveau_dico[i]);
+                strcpy(ancien_dico[i],nouveau_dico[i]);
+            }
+
+            char* premier_mot = meilleur_mot(nouveau_dico, size_nv_dico);
+
+            printf("Le meilleur mot est : %s\n", premier_mot);
+
+            printf("Nombre d'essais : %d\n\n\n", nombre_essai);
         }
 
-        char* nouveau_dico[num_words];
-        size_nv_dico = 0;
-
-        nv_dico (bon_mot, resultat, 5, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
-
-        size_ancien_dico = size_nv_dico;
-
-        for(int i=0; i<size_nv_dico; ++i){
-            printf("%s\n",nouveau_dico[i]);
-            strcpy(ancien_dico[i],nouveau_dico[i]);
-        }
-
-        char* premier_mot = meilleur_mot(nouveau_dico, size_nv_dico);
-
-        printf("Le meilleur mot est : %s\n", premier_mot);
-
-        printf("Nombre d'essais : %d\n\n\n", nombre_essai);
     } while(nombre_essai<6 && victoire!=1);
 
     if(victoire == 1){printf("BRAVO !!\n");}
