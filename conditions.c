@@ -14,7 +14,7 @@ char* conditions(char* mot, char** dictionnaire, unsigned int num_words){
     do{
         condition = true;
 
-        printf("Tentez un mot de 5 lettres\n\n");
+        printf("Tentez un mot de 5 lettres en majuscules\n\n");
 
         scanf("%s", mot);
 
