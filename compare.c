@@ -33,11 +33,11 @@ bool comparer (char *mot_ordi, char *mot_entre, int size)
 
 // verification de si on a le bon mot
 
-   if (strcmp(mot_ordi, mot_entre) == 0)
+    if (strcmp(mot_ordi, mot_entre) == 0)
     {
         return (true);
     }
-  
+ 
 
 // si on a pas le bon mot, lettres mal placées
 
@@ -50,16 +50,13 @@ bool comparer (char *mot_ordi, char *mot_entre, int size)
                 if ( mot_modif_entre[i] == mot_modif_ordi[j] )
                 {
                     L[i] = 'O';
-                    mot_modif_ordi[i]= '1'; //pour qu il ne soit plus comparé
+                    mot_modif_ordi[j]= '1'; //pour qu il ne soit plus comparé
                     mot_modif_entre[i]= '0'; //pour qu il ne soit plus comparé
                 }
             }
         }
     }
-    for (int i = 0; i < size; ++i)
-    {
-        printf("%c", L[i]);
-    }
-    printf("\n");
-    return(false);
+    printf("%s\n", L);
+
+   return(false);
 }
