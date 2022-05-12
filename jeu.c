@@ -64,78 +64,84 @@ int main (int argc, char *argv[]){
     }
 
     else if(strcmp(aide,"O")==0){
+        int size_mot = 5;
 
         srand(time(NULL));
         int n_aleatoire = rand() % num_words;
 
         char mot_aleatoire[256];
         strcpy(mot_aleatoire,dictionnaire[n_aleatoire]); 
+        // Pour tester si ça marche avec "voici" ou "mince" (ça marche)
+        //strcpy(mot_aleatoire,"VOICI");
+        //strcpy(mot_aleatoire,"MINCE");
 
         printf("%s\n", mot_aleatoire);
 
-        resolveur(argv[2]);
-
         char* ancien_dico[num_words];
         int size_ancien_dico = num_words;
+
         char* nouveau_dico[num_words];
         int size_nv_dico = num_words;
 
         for(int i=0; i<num_words; ++i){
-            ancien_dico[i] = dictionnaire[i];
-            nouveau_dico[i] = dictionnaire[i];
+            ancien_dico[i]=dictionnaire[i];
+            nouveau_dico[i]=dictionnaire[i];
         }
 
 
-        do{
+        while(nombre_essai<6 && victoire!=1){
 
-        char* bon_mot=conditions(mot, nouveau_dico, size_nv_dico);
+            resolveur(nouveau_dico, size_nv_dico);
 
-        printf("%s\n", bon_mot);
+            char* bon_mot=conditions(mot, nouveau_dico, size_nv_dico);
 
-        if (comparer(mot_aleatoire, bon_mot, 5)==true) {victoire = 1;}
+            printf("%s\n", bon_mot);
 
-        ++nombre_essai;
+            if (comparer(mot_aleatoire, bon_mot, 5)==true) {victoire = 1;}
 
-        if(victoire!=1){
+            ++nombre_essai;
+
+            if(victoire!=1){
             
-            printf("Rentrez le résulat : \n");
+                printf("Rentrez le résulat : \n");
 
-            char symbole[5];
-            scanf("%s", symbole);
+                char symbole[5];
+                scanf("%s", symbole);
 
-            int resultat[5];
-            for(int j=0; j<5; ++j){
-                if(symbole[j]=='X'){resultat[j]=2;}
-                else if(symbole[j] =='O'){resultat[j]=1;}
-                else {resultat[j]=0;}
+                int resultat[5];
+
+                for(int j=0; j<5; ++j){
+                    if(symbole[j]=='X'){resultat[j]=2;}
+                    else if(symbole[j] =='O'){resultat[j]=1;}
+                    else if(symbole[j]=='.'){resultat[j]=0;}
+                    printf("%d",resultat[j]);
+
+                }
+                printf("\n");
+
+                char* nouveau_dico[size_nv_dico];
+                size_nv_dico = 0;
+
+                nv_dico (bon_mot, resultat, size_mot, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
+
+                size_ancien_dico = size_nv_dico;
+
+                for(int i=0; i<size_nv_dico; ++i){
+                    printf("%s\n",nouveau_dico[i]);
+                    strcpy(ancien_dico[i],nouveau_dico[i]);
+                }
+
+
+                printf("Nombre d'essais : %d\n\n\n", nombre_essai);
             }
 
-            char* nouveau_dico[num_words];
-            size_nv_dico = 0;
-
-            nv_dico (bon_mot, resultat, 5, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
-
-            size_ancien_dico = size_nv_dico;
-
-            for(int i=0; i<size_nv_dico; ++i){
-                printf("%s\n",nouveau_dico[i]);
-                strcpy(ancien_dico[i],nouveau_dico[i]);
-            }
-
-            char* premier_mot = meilleur_mot(nouveau_dico, size_nv_dico);
-
-            printf("Le meilleur mot est : %s\n", premier_mot);
-
-            printf("Nombre d'essais : %d\n\n\n", nombre_essai);
         }
 
-    } while(nombre_essai<6 && victoire!=1);
-
-    if(victoire == 1){printf("BRAVO !!\n");}
-    else {printf("Dommage, le mot était : %s\n", mot_aleatoire);}
+        if(victoire == 1){printf("BRAVO !!\n");}
+        else {printf("Dommage, le mot était : %s\n", mot_aleatoire);}
     }
 
-    else {printf("Commande non existante.\n"); return(-1);}
+        else {printf("Commande non existante.\n"); return(-1);}
 
     return 0;
 }

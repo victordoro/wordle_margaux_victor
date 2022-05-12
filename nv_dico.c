@@ -119,22 +119,22 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
 int main()
 {
     char* dico [15];
-    dico[0]="linon";
-    dico[1]="vison";
-    dico[2]="ripou";
+    dico[0]="ABACA";
+    dico[1]="AUTRE";
+    dico[2]="RIVES";
     int size_nv_dico = 0;
     char* nouv_dico[256];
     char ancien_mot[5];
-    ancien_mot[0] = 'i';
-    ancien_mot[1] = 'n';
-    ancien_mot[2] = 't';
-    ancien_mot[3] = 'o';
-    ancien_mot[4] = 'x';
+    ancien_mot[0] = 'A';
+    ancien_mot[1] = 'B';
+    ancien_mot[2] = 'A';
+    ancien_mot[3] = 'C';
+    ancien_mot[4] = 'A';
     int resultat[5];
-    resultat[0] = 1;
-    resultat[1] = 1;
+    resultat[0] = 2;
+    resultat[1] = 0;
     resultat[2] = 0;
-    resultat[3] = 2;
+    resultat[3] = 0;
     resultat[4] = 0;
     int size_mot = 5;
     int size_dico = 3;

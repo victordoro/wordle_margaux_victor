@@ -11,12 +11,7 @@
 #include "nv_dico.h"
 #include "algo.h"
 
-void resolveur(char* texte){
-
-    unsigned int size;
-    char** dictionnaire = liste_dicho(texte, &size);
-
-    unsigned int num_words=size;
+void resolveur(char** dictionnaire, unsigned int num_words){
 
     char* premier_mot = meilleur_mot(dictionnaire, num_words);
 
