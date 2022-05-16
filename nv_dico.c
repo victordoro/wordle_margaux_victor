@@ -80,7 +80,7 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
                     {
 
 // si je trouve la lettre a un  endroit j'arrête ma boucle
-                        if ( (dico[i][g] == lettre_non_place[h]) && (dico[i][g] !=lettre_bien_place[g]) )
+                        if ( (copy_mot_dico[g] == lettre_non_place[h]) && (copy_mot_dico[g] !=lettre_bien_place[g]) )
                         {
                             g = size_mot + 1;
                         }
@@ -131,7 +131,7 @@ int main()
     ancien_mot[3] = 'C';
     ancien_mot[4] = 'A';
     int resultat[5];
-    resultat[0] = 2;
+    resultat[0] = 1;
     resultat[1] = 1;
     resultat[2] = 0;
     resultat[3] = 0;
