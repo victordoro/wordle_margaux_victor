@@ -115,13 +115,13 @@ void nv_dico (char* ancien_mot, int* resultat, int size_mot, int size_dico, int 
     *size_nv_dico = indice;
 }
 
-
+/*
 int main()
 {
     char* dico [15];
     dico[0]="ABACA";
     dico[1]="ARBRE";
-    dico[2]="BILAN";
+    dico[2]="ATMAN";
     int size_nv_dico = 0;
     char* nouv_dico[256];
     char ancien_mot[5];
@@ -131,9 +131,9 @@ int main()
     ancien_mot[3] = 'C';
     ancien_mot[4] = 'A';
     int resultat[5];
-    resultat[0] = 1;
-    resultat[1] = 1;
-    resultat[2] = 0;
+    resultat[0] = 2;
+    resultat[1] = 0;
+    resultat[2] = 1;
     resultat[3] = 0;
     resultat[4] = 0;
     int size_mot = 5;
@@ -145,3 +145,4 @@ int main()
     }
     return 0;
 }
+*/

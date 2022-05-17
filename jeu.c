@@ -26,7 +26,7 @@ int main (int argc, char *argv[]){
     char** dictionnaire = liste_dicho(argv[2], &size);
 
     unsigned int num_words=size;
-
+    printf("%d\n", num_words);
 
 // Début de la partie
 
@@ -64,6 +64,7 @@ int main (int argc, char *argv[]){
     }
 
     else if(strcmp(aide,"O")==0){
+        printf("Calcul du meilleur mot...\n");
         int size_mot = 5;
 
         srand(time(NULL));
@@ -74,9 +75,9 @@ int main (int argc, char *argv[]){
         // Pour tester si ça marche avec "voici" ou "mince" (ça marche)
         //strcpy(mot_aleatoire,"VOICI");
         //strcpy(mot_aleatoire,"MINCE");
+        //strcpy(mot_aleatoire,"TAPER");
 
-        printf("%s\n", mot_aleatoire);
-
+        //printf("%s\n", mot_aleatoire);
         char* ancien_dico[num_words];
         int size_ancien_dico = num_words;
 
@@ -97,6 +98,7 @@ int main (int argc, char *argv[]){
 
             printf("%s\n", bon_mot);
 
+
             if (comparer(mot_aleatoire, bon_mot, 5)==true) {victoire = 1;}
 
             ++nombre_essai;
@@ -104,6 +106,9 @@ int main (int argc, char *argv[]){
             if(victoire!=1){
             
                 printf("Rentrez le résulat : \n");
+
+                char bon_mot2 [256];
+                strcpy(bon_mot2, bon_mot);
 
                 char symbole[5];
                 scanf("%s", symbole);
@@ -114,23 +119,20 @@ int main (int argc, char *argv[]){
                     if(symbole[j]=='X'){resultat[j]=2;}
                     else if(symbole[j] =='O'){resultat[j]=1;}
                     else if(symbole[j]=='.'){resultat[j]=0;}
-                    printf("%d",resultat[j]);
 
                 }
-                printf("\n");
+
 
                 char* nouveau_dico[size_nv_dico];
                 size_nv_dico = 0;
 
-                nv_dico (bon_mot, resultat, size_mot, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
-
-                size_ancien_dico = size_nv_dico;
+                nv_dico (bon_mot2, resultat, size_mot, size_ancien_dico, &size_nv_dico, ancien_dico, nouveau_dico);
 
                 for(int i=0; i<size_nv_dico; ++i){
-                    printf("%s\n",nouveau_dico[i]);
+                    //printf("%s\n",nouveau_dico[i]);
                     strcpy(ancien_dico[i],nouveau_dico[i]);
                 }
-
+                size_ancien_dico = size_nv_dico;
 
                 printf("Nombre d'essais : %d\n\n\n", nombre_essai);
             }
